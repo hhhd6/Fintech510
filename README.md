@@ -52,7 +52,7 @@ regular Windows environment or WSL. When we execute code and use VS Code, we
 want to use the WSL environment. Hence, starting VS Code from the WSL
 window.  However, we also want you to be able to quickly find your code files, 
 so we have placed the student repository under your normal "Documents" folder. 
-The `/mnt/c` directory in WSL points to "C:\" in Windows.
+The `/mnt/c` directory in WSL points to "C:\\" in Windows.
 
 The `ln -s` command created a symbolic link from your home directory in WSL
 to the student repository directory under your Windows "Documents" folder.
