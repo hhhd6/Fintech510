@@ -45,6 +45,20 @@ You can also open VSCode from the Launchpad and then open the appropriate folder
    cd ~/fintech510/student-repository
    code .
    ```
+
+In Step 2, the first line creates a variable containing the location of
+your home directory in the Windows environment.  You can see the contents of that
+variable by running `echo $WINDOWS_HOME`.
+
+The following line then changes the current working directory to the "Documents" folder
+in your Windows environment. You can execute `ls` to see the contents of
+the directory and validate that you are in the correct location.
+
+The third line clones (makes a local copy) of the FinTech 510 Student Repository
+to your computer.
+
+The last line creates a soft link (Linux shortcut) from your WSL home directory
+to the repository directory within Windows.
    
 With Windows, it can become a bit confusing whether you are in the 
 regular Windows environment or WSL. When we execute code and use VS Code, we
