@@ -37,7 +37,6 @@ You can also open VSCode from the Launchpad and then open the appropriate folder
    WINDOWS_HOME=$(echo /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" | tr -d '\r'))
    cd "$WINDOWS_HOME"/Documents
    git clone https://gitlab.oit.duke.edu/fintech-510/fintech510-studentrepository
-   cd fintech510-studentrepository/
    cd
    ln -s "$WINDOWS_HOME"/Documents/fintech510-studentrepository fintech510-studentrepository
    ```
