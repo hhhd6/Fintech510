@@ -34,7 +34,7 @@ You can also open VSCode from the Launchpad and then open the appropriate folder
 1. Open Ubuntu / WSL.
 2. Execute the following commands:
    ```bash
-   WINDOWS_HOME=$(wslpath "$(powershell.exe -c '$env:USERPROFILE')")
+   WINDOWS_HOME=$(wslpath "$(powershell.exe -c '$env:USERPROFILE' | tr -d '\r')")
    cd "$WINDOWS_HOME"/Documents
    git clone https://gitlab.oit.duke.edu/fintech-510/fintech510-studentrepository
    cd
