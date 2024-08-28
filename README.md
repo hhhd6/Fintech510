@@ -34,7 +34,7 @@ You can also open VSCode from the Launchpad and then open the appropriate folder
 1. Open Ubuntu / WSL.
 2. Execute the following commands:
    ```bash
-   WINDOWS_HOME=$(echo /mnt/c/Users/$(cmd.exe /c "echo %USERNAME%" | tr -d '\r'))
+   WINDOWS_HOME=$(wslpath "$(powershell.exe -c '$env:USERPROFILE')")
    cd "$WINDOWS_HOME"/Documents
    git clone https://gitlab.oit.duke.edu/fintech-510/fintech510-studentrepository
    cd
@@ -42,7 +42,7 @@ You can also open VSCode from the Launchpad and then open the appropriate folder
    ```
 3. To start VS Code, you must still be in Ubuntu / WSL.
    ```bash
-   cd ~/fintech510/student-repository
+   cd ~/fintech510-studentrepository
    code .
    ```
 
