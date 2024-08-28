@@ -74,3 +74,12 @@ Once you've started VS Code, you should be able to use the "Recent" list to open
 VS Code within the WSL environment, even if you start it from the application icon
 or the Start Menu.  You can also repeat step #3 above to open VS Code.
 
+### Windows Desktop Shortcut:
+As with the Windows Installation for the notebooks, you can create 
+a desktop shortcut to open VS Code for the assignments.
+
+Using the [same approach](https://fintechpython.pages.oit.duke.edu/jupyternotebooks/0-Preliminaries/03-Windows_Installation.html#desktop-shortcuts)
+as the notebooks, use the following as the location for the shortcut:
+```
+C:\Windows\System32\wsl.exe bash -c "cd ~/fintech510-studentrepository && code .
+```
