@@ -81,5 +81,5 @@ a desktop shortcut to open VS Code for the assignments.
 Using the [same approach](https://fintechpython.pages.oit.duke.edu/jupyternotebooks/0-Preliminaries/03-Windows_Installation.html#desktop-shortcuts)
 as the notebooks, use the following as the location for the shortcut:
 ```
-C:\Windows\System32\wsl.exe bash -c "cd ~/fintech510-studentrepository && code .
+C:\Windows\System32\wsl.exe bash -c "cd ~/fintech510-studentrepository && code ."
 ```
