@@ -83,3 +83,23 @@ as the notebooks, use the following as the location for the shortcut:
 ```
 C:\Windows\System32\wsl.exe bash -c "cd ~/fintech510-studentrepository && code ."
 ```
+
+## Repository Update
+During the semester, you may need to update the repository to see the latest assignments
+available.
+
+### MacOS
+1. Open Terminal
+2. Use `git` to pull the latest changes in the repository to your computer:
+   ```bash
+   cd ~/Documents/fintech510-studentrepository
+   git pull
+   ```
+
+### Windows
+1. Open Ubuntu / WSL.
+2. Use `git` to pull the latest changes in the repository to your computer:
+   ```bash
+   cd ~/fintech510-studentrepository
+   git pull
+   ``` 
