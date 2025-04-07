@@ -37,5 +37,17 @@ int main(int argc, char* argv[]){
 		return EXIT_FAILURE;
     }
 
+    Eigen::MatrixXd A = read_from_file(argv[1]);
+    Eigen::MatrixXd B_matrix = read_from_file(argv[2]);
 
+    Eigen::MatrixXd X = A.colPivHouseholderQr().solve(B_matrix.transpose());
+
+    Eigen::MatrixXd solution = X.transpose();
+
+    std::cout << solution.rows() << " " << solution.cols() << std::endl;
+
+    const static Eigen::IOFormat fmt(6, 0, " ", "\n", "", "");
+    std::cout << solution.format(fmt) << std::endl;
+
+    return EXIT_SUCCESS;
 }

@@ -47,24 +47,51 @@ private:
 
     size_t compute_height(Node *node) const {
         // need to implement
-        return 0;
+        if (node == nullptr) {
+            return 0;
+        }
+        return 1 + std::max(compute_height(node->left), compute_height(node->right));
     }
 
     size_t countLeaves(Node* node) const {
         // need to implement
-        return 0;
+        if (node == nullptr) {
+            return 0;
+        }
+        if (node->left == nullptr && node->right == nullptr) {
+            return 1;
+        }
+        return countLeaves(node->left) + countLeaves(node->right);
     }
 
     void inorder(Node* node, std::ostream& os) const {
         // need to implement 
+        if (node == nullptr) {
+            return;
+        }
+        inorder(node->left, os);
+        os << node->data << " ";
+        inorder(node->right, os);
     }
 
     void preorder(Node* node, std::ostream& os) const {
         // need to implement 
+        if (node == nullptr) {
+            return;
+        }
+        os << node->data << " ";
+        preorder(node->left, os);
+        preorder(node->right, os);
     }    
 
     void postorder(Node* node, std::ostream& os) const {
-        // need to implement 
+        // need to implement
+        if (node == nullptr) {
+            return;
+        }
+        postorder(node->left, os);
+        postorder(node->right, os);
+        os << node->data << " ";
     } 
 
     Node* minValueNode(Node* node) {
@@ -78,7 +105,30 @@ private:
         if (node == nullptr) return node;
 
         // need to implement
-        
+        if (value < node->data) {
+            node->left = deleteNode(node->left, value);
+        }
+        else if (value > node->data) {
+            node->right = deleteNode(node->right, value);
+        }
+        else {
+            // Case 1: Leaf node or node with one child
+            if (node->left == nullptr) {
+                Node* temp = node->right;
+                delete node;
+                return temp;
+            }
+            else if (node->right == nullptr) {
+                Node* temp = node->left;
+                delete node;
+                return temp;
+            }
+
+            // Case 2: Node with two children
+            Node* temp = minValueNode(node->right);
+            node->data = temp->data;
+            node->right = deleteNode(node->right, temp->data);
+        }
         return node;
     }    
 
@@ -146,6 +196,17 @@ public:
 
     bool exists(T value) const {
         // need to implement
+        Node* current = root;
+        while (current != nullptr) {
+            if (value == current->data) {
+                return true;
+            }
+            if (value < current->data) {
+                current = current->left;
+            } else {
+                current = current->right;
+            }
+        }
         return false;
     }
 

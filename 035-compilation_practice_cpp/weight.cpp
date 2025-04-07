@@ -9,7 +9,7 @@ using std::cout;
 // from the console.
 
 int main() {
-    double height;
+    double height, weight;
 
     cout << "Enter a height in meters: ";
     cin >> height;
@@ -17,7 +17,7 @@ int main() {
     cout << "Enter a weight in kilograms: ";
     cin >> weight;
 
-    double bmi = weight / height * height);
+    double bmi = weight / (height * height);
 
     cout << "The BMI is: " << bmi;
 
@@ -30,7 +30,7 @@ int main() {
         cout << ", overweight\n";
     } else {
         cout << ", obese\n";
-    
+    }
 
     return 0;
 }

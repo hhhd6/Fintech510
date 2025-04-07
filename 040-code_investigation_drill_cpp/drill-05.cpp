@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     try {
         vector<char> v(5); 
-        for (int i=0; 0<v.size(); ++i) 
+        for (vector<char>::size_type i=0; i < v.size(); ++i) 
             ; 
         cout << "Success!\n";
         return 0;

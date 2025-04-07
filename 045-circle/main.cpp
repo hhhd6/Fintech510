@@ -52,30 +52,30 @@ void doMove(vector<Circle> &circles, string arguments) {
  *        is taken except a message sent to cerr
  */
 void doIntersection(vector<Circle> circles, string arguments) {
-  stringstream sinput(arguments);
+stringstream sinput(arguments);
 
-  size_t c1 = std::numeric_limits<unsigned>::max();
-  size_t c2 = std::numeric_limits<unsigned>::max();
+size_t c1 = std::numeric_limits<unsigned>::max();
+size_t c2 = std::numeric_limits<unsigned>::max();
 
-  if ( not (sinput >> c1 >> c2)) {
-      cerr << "Incorrect arguments for intersection: " << arguments << endl;
-      return;
-  }
-  if (not (sinput.peek() == EOF)) {
-      cerr << "Extraneous input on line: " << arguments << endl;
-      return;
-  }
-  if (c1 >= circles.size()) {
-      cerr << "Invalide valid value for circle #1: "<< c1 << endl;
-      return;
-  }
-  if (c2 >= circles.size()) {
-      cerr << "Invalide valid value for circle #2: "<< c2 << endl;
-      return;
-  }
+if ( not (sinput >> c1 >> c2)) {
+    cerr << "Incorrect arguments for intersection: " << arguments << endl;
+    return;
+}
+if (not (sinput.peek() == EOF)) {
+    cerr << "Extraneous input on line: " << arguments << endl;
+    return;
+}
+if (c1 >= circles.size()) {
+    cerr << "Invalide valid value for circle #1: "<< c1 << endl;
+    return;
+}
+if (c2 >= circles.size()) {
+    cerr << "Invalide valid value for circle #2: "<< c2 << endl;
+    return;
+}
 
-  double area = circles[c1].intersectionArea(circles[c2]);
-  cout << "Area of intersection between c" << c1 << " and c" << c2 << ": " << fixed << setprecision(2) << setw(5) << area << endl;
+double area = circles[c1].intersectionArea(circles[c2]);
+cout << "Area of intersection between c" << c1 << " and c" << c2 << ": " << fixed << setprecision(2) << setw(5) << area << endl;
 }
 
 
@@ -147,7 +147,7 @@ int main(void) {
 
     cout << "Enter the number of circles to create: ";
     if (getline(cin,line)) {
-         numCircles = convertStringToUnsignedInt(line);
+        numCircles = convertStringToUnsignedInt(line);
     }
     if (numCircles <= 0 || numCircles == std::numeric_limits<unsigned>::max()) {
         cerr << "Number of circles must be an integer >= 0\n" << "Received: " << line << endl;
@@ -169,19 +169,19 @@ int main(void) {
             return EXIT_FAILURE;
         }
     }
-     
-     while (getline(cin, line)) {
-         line = trim(line);
-         if (line.length() == 0) {
-             continue;
-         }
-         switch (line[0]) {
-             case 'm': doMove(circles, line.substr(1));
-                       break;
-             case 'i': doIntersection(circles, line.substr(1));
-                       break;
-             default: cerr <<  "Unrecognized command: " << line << endl;
-         }
+
+    while (getline(cin, line)) {
+        line = trim(line);
+        if (line.length() == 0) {
+            continue;
+        }
+        switch (line[0]) {
+            case 'm': doMove(circles, line.substr(1));
+                    break;
+            case 'i': doIntersection(circles, line.substr(1));
+                    break;
+            default: cerr <<  "Unrecognized command: " << line << endl;
+        }
     }
 
     return EXIT_SUCCESS;

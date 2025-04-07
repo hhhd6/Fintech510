@@ -1,110 +1,104 @@
-#include <algorithm>
-#include <iostream>
-#include <stdexcept>
-#include <string>
 #include "expr.hpp"
+#include <ctype.h>
+#include <stdio.h>
+#include <string.h>
+#include <cstdlib>
+#include <iostream>
 
-Expression * parse(std::string &line);
+Expression * parseExpression(const char ** strp);
 
-const std::string OPERATORS = "+-*/";
-
-static inline void ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](unsigned char ch) {
-        return !std::isspace(ch);
-    }));
-}
-
-void consumeInput(std::string &s, size_t length = 1) {
-    s.erase(0,length);
-}
-
-Expression * makeExpr(char op, Expression * lhs, Expression * rhs) {
-    switch(op) {
-        case '+': return new PlusExpression(lhs,rhs);
-        case '-': return new MinusExpression(lhs,rhs);
-        case '*': return new TimesExpression(lhs,rhs);
-        case '/': return new DivExpression(lhs,rhs);
-        default:  std::cerr << "Impossible op char: " << op << "\n";
-                  abort();
+void ignoreWhitespace(const char ** strp) {
+    while (isspace(**strp)) {
+        ++(*strp);
     }
 }
 
-bool isValidOp(char c) {
-    return OPERATORS.find(c) != std::string::npos;
+Expression * createExpression(char operatorChar, Expression * left, Expression * right) {
+    switch (operatorChar) {
+        case '+':
+            return new AddExpression(left, right);
+        case '-':
+            return new SubtractExpression(left, right);
+        case '*':
+            return new MultiplyExpression(left, right);
+        case '/':
+            return new DivideExpression(left, right);
+        default:
+            std::cerr << "Invalid operator: " << operatorChar << "\n";
+            std::abort();
+    }
 }
 
-Expression * parseOp(std::string &line) {
-    ltrim(line);
-    char op = line[0];
-    if (!isValidOp(op)) {
-        std::cerr << "Invalid op: "<< op<< "\n";
+bool isOperator(char character) {
+    return strchr("+-*/", character) != nullptr;
+}
+
+Expression * parseOperator(const char ** strp) {
+    ignoreWhitespace(strp);
+    char operatorChar = **strp;
+    if (!isOperator(operatorChar)) {
+        std::cerr << "Unexpected operator: " << operatorChar << "\n";
         return nullptr;
     }
-    consumeInput(line);
-    Expression * lhs = parse(line);
-    if (lhs == nullptr) {
+    ++(*strp);
+    Expression * leftExpr = parseExpression(strp);
+    if (leftExpr == nullptr) {
         return nullptr;
     }
-    
-    Expression * rhs = parse(line);
-    if (rhs == nullptr) {
-        delete lhs;
+    Expression * rightExpr = parseExpression(strp);
+    if (rightExpr == nullptr) {
+        delete leftExpr;
         return nullptr;
     }
-    ltrim(line);
-    if (line[0] == ')') {
-        consumeInput(line);
-        return makeExpr(op,lhs,rhs);
+    ignoreWhitespace(strp);
+    if (**strp == ')') {
+        ++(*strp);
+        return createExpression(operatorChar, leftExpr, rightExpr);
     }
-    std::cerr <<"Expected ) but found " << line << "\n";
-    delete lhs;
-    delete rhs;
+    std::cerr << "Mismatched parenthesis at: " << *strp << "\n";
+    delete leftExpr;
+    delete rightExpr;
     return nullptr;
 }
 
-Expression * parse(std::string &line) {
-    ltrim(line);
-
-    if (line.length() == 0) {
-        std::cerr << "End of line found mid expression!\n";
+Expression * parseExpression(const char ** strp) {
+    ignoreWhitespace(strp);
+    if (**strp == '\0') {
+        std::cerr << "Unexpected end of input!\n";
         return nullptr;
     }
-    else if (line[0] == '(') {     // (op E E)
-        consumeInput(line);
-        return parseOp(line);
-    }
-    else {    //number
-        try {
-            size_t pos;
-            long num = stol(line,&pos);
-            consumeInput(line,pos);
-            return new NumExpression(num);
-        }
-        catch (const std::invalid_argument& ia) {
-            std::cerr << "Expected a number, but found " << line << '\n';
-	          std::cerr << "Invalid argument: " << ia.what() << '\n';
-            return nullptr;
-        }
-    }
-}
-
-int main(void) {
-    
-    std::string line;
-    while (getline(std::cin,line)) {
-    std::cout << "Read expression: " << line << "\n";
-
-    Expression * expr = parse(line);
-    if (expr != nullptr) {
-      std::cout << "Parsed expression to: " << expr->toString() << "\n";
-      std::cout << "Evaluated expression to: " << expr->evaluate() << "\n";
-      delete expr;
+    else if (**strp == '(') {
+        ++(*strp);
+        return parseOperator(strp);
     }
     else {
-      std::cout << "Could not parse expression, please try again.\n";
+        char * endPointer;
+        long number = strtol(*strp, &endPointer, 10);
+        if (endPointer == *strp) {
+            std::cerr << "Expected a number but found: " << *strp << "\n";
+            return nullptr;
+        }
+        *strp = endPointer;
+        return new NumericExpression(number);
     }
-  }
-
-  return EXIT_SUCCESS;
 }
 
+int main() {
+    char * inputLine = nullptr;
+    size_t bufferSize = 0;
+    while (getline(&inputLine, &bufferSize, stdin) != -1) {
+        const char * temp = inputLine;
+        std::cout << "Input received: " << inputLine;
+        Expression * expression = parseExpression(&temp);
+        if (expression != nullptr) {
+            std::cout << "Parsed expression: " << expression->toString() << "\n";
+            std::cout << "Result: " << expression->evaluate() << "\n";
+            delete expression;
+        }
+        else {
+            std::cout << "Failed to parse input. Please check your input format.\n";
+        }
+    }
+    free(inputLine);
+    return 0;
+}

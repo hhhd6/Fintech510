@@ -6,9 +6,9 @@
 using namespace std;
 
 void encrypt(ifstream &f, int key, ofstream &outfile) {
-    string *line = new string;
-    while (getline(f,*line)) {
-        char* ptr = (*line).data();
+    string line;
+    while (getline(f, line)) {
+        char* ptr = &line[0];
         while (*ptr != '\0') {
             char c = *ptr;
             if (isalpha(c)) {
@@ -21,7 +21,7 @@ void encrypt(ifstream &f, int key, ofstream &outfile) {
             *ptr = c;
             ptr++;
         }
-        outfile << *line << "\n";
+        outfile << line << "\n";
     }
 }
 
@@ -49,17 +49,17 @@ int main(int argc, char **argv) {
         return EXIT_FAILURE;
     }
 
-    char *outFileName =  new char [(strlen(argv[2]) + 4)];
+    string outFileName = string(argv[2]) + ".enc";
 
-    strcpy(outFileName, argv[2]);
-    strcat(outFileName, ".enc");
-
-    ofstream outFile{outFileName};
+    ofstream outFile(outFileName);
     if (!outFile) {
         cerr << "can't open output file: " << outFileName << "\n";
         return EXIT_FAILURE;
     }
-    encrypt(inputFile,key, outFile);
-    
+    encrypt(inputFile, key, outFile);
+
+    inputFile.close();
+    outFile.close();
+
     return EXIT_SUCCESS;
 }

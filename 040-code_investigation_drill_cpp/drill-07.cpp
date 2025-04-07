@@ -11,9 +11,11 @@ int main() {
         int i = 0;
         int j = 9;
         while (i<10) { 
-            ++j;
+            ++i;
         } 
-        if (j<i) {
+        if (j >= i) {
+            cout << "No success\n";
+        } else {
             cout << "Success!\n";
         }
         return 0;

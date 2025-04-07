@@ -10,9 +10,9 @@ using namespace std;
 
 int main() {
     try {
-        string res = 7;
+        string res = "7";
         vector<int> v(10); 
-        v[5] = res; 
+        v[5] = stoi(res); 
         cout << "Success!\n";
         return 0;
     }

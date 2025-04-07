@@ -1,5 +1,14 @@
 #error
 missing_rows.txt
+invalid_column_sums.txt
+invalid_row_sums.txt
+out_of_range_values.txt
+duplicate_numbers.txt
+missing_grid_label.txt
 
 #success
 sample_easy.txt
+sample_expert.txt
+sample_image.txt
+valid_puzzle_1.txt
+valid_puzzle_2.txt

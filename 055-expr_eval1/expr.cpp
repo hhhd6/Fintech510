@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <string>
 #include "expr.hpp"
+#include <sstream>
 
 Expression * parse(std::string &line);
 
@@ -90,6 +91,17 @@ Expression * parse(std::string &line) {
             return nullptr;
         }
     }
+}
+
+std::string NumExpression::toString() const {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+}
+
+// Implement toString for PlusExpression
+std::string PlusExpression::toString() const {
+    return "(" + lhs->toString() + " + " + rhs->toString() + ")";
 }
 
 int main(void) {

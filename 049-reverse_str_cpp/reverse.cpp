@@ -4,7 +4,13 @@
 using namespace std;
 
 void reverse(string &str) {
-  //WRITE ME
+    int left = 0;
+    int right = str.length() - 1;
+    while (left < right) {
+        swap(str[left], str[right]);
+        left++;
+        right--;
+    }
 }
 
 int main(void) {

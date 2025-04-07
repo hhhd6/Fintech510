@@ -48,19 +48,29 @@ def validate(card_number: str):
 
     if ascii_num_pattern.fullmatch(card_number) is None:
         return False
-    if not (15 <= len(card_number) <= 16):
+    if not (len(card_number) == 15 or len(card_number) == 16):
         return False
 
-    length = -1
-    if card_number.startswith("4") or is_mastercard(card_number):
-        length = 16
+    # length = -1
+    if card_number.startswith("4"):
+        if len(card_number) != 16:
+            return False
+    
     elif is_american_express(card_number):
-        length = 15
+        if len(card_number) != 16:
+            return False
 
-    if length == -1:   # not a valid type
-        return False
 
-    if len(card_number) != length:     # card is an invalid length
+    elif is_mastercard(card_number):
+        if len(card_number) != 16:
+            return False
+    # if length == -1:   # not a valid type
+    #     return False
+
+    # if len(card_number) != length:     # card is an invalid length
+    #     return False
+    
+    else:
         return False
 
     return is_luhn_valid(card_number)

@@ -97,6 +97,36 @@ void solveMazeRecursive(Grid &maze) {
 
 bool solveMazeRecursive(Grid &maze, int row, int col) {
     // Only alter this function
+    if (maze[row][col] == 'F') {
+        return true;
+    }
+    
+    if (maze[row][col] == 'X' || maze[row][col] == '.' || maze[row][col] == 'b') {
+        return false;
+    }
+    
+    // Mark current cell with a period to show the path
+    maze[row][col] = '.';
+    
+    // Try paths in order: up, down, right, left
+    if (solveMazeRecursive(maze, row - 1, col)) {
+        return true;
+    }
+    
+    if (solveMazeRecursive(maze, row + 1, col)) {
+        return true;
+    }
+    
+    if (solveMazeRecursive(maze, row, col + 1)) {
+        return true;
+    }
+    
+    if (solveMazeRecursive(maze, row, col - 1)) {
+        return true;
+    }
+    
+    maze[row][col] = 'b';
+
     return false; // only present so initial code will compile
 }
 

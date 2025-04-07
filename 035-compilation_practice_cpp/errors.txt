@@ -1,0 +1,35 @@
+hello_1.cpp:3:5: error: use of undeclared identifier 'cout'
+    3 |     cout << "Hello, World!\n";
+      |     ^
+1 error generated.
+hello_2.cpp:5:13: warning: missing terminating '"' character [-Winvalid-pp-token]
+    5 |     cout << "Hello, World!\n; 
+      |             ^
+hello_2.cpp:5:13: error: expected expression
+1 warning and 1 error generated.
+hello_3.cpp:4:1: error: unknown type name 'integer'
+    4 | integer main() {
+      | ^
+1 error generated.
+hello_4.cpp:5:10: warning: result of comparison against a string literal is unspecified (use an explicit string comparison function instead) [-Wstring-compare]
+    5 |     cout < "Hello, World!\n"; 
+      |          ^ ~~~~~~~~~~~~~~~~~
+
+hello_5.cpp:5:30: error: expected ';' after expression
+    5 |     cout << "Hello, World!\n"
+      |                              ^
+      |                              ;
+1 error generated.
+
+system.cpp:40:43: error: expected ')'
+   40 |     for (int year = 1; year <= 10; year++ {
+      |                                           ^
+system.cpp:40:9: note: to match this '('
+   40 |     for (int year = 1; year <= 10; year++ {
+      |         ^
+1 error generated.
+
+weight.cpp:18:12: error: use of undeclared identifier 'weight'; did you mean 'height'?
+   18 |     cin >> weight;
+      |            ^~~~~~
+      |            height

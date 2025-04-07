@@ -6,7 +6,7 @@
 class Something {
     int x;
 
-  public:
+    public:
     Something(int _x) : x(_x)  {
         std::cout << "Something(" << x << ")\n";
     }

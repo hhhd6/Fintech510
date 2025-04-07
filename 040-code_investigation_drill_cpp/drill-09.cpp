@@ -8,11 +8,12 @@ using namespace std;
 
 int main() {
     try {
-        int i=0; 
-        while (i<10) {
-            ++j;
+        int i = 0; 
+        int j = 0;
+        while (i < 10) {
+            ++i;
         }
-        if (j<i) {
+        if (j <= i) {
             cout << "Success!\n";
         }
         return 0;

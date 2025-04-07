@@ -1,0 +1,13 @@
+#error
+undersized_correlation.csv correlation.csv
+universe.csv oversized_correlation.csv
+universe.csv nonnumeric_correlation.csv
+universe.csv out_of_range_correlation.csv
+incomplete_universe.csv correlation.csv
+nonnumeric_universe.csv correlation.csv
+malformed_universe.csv correlation.csv
+universe.csv asymmetric_correlation.csv
+
+#success
+universe.csv correlation.csv
+-r universe.csv correlation.csv

@@ -1,0 +1,10 @@
+the
+gatsby
+zz
+\b\w*x\b
+[^cC]ei
+\b\w*[bcdfghjklmnpqrstvwxz]{4}\w*\b
+\d{5}(-\d{4})?
+\d{2}/\d{2}/(\d{4})
+4\d{3} \d{4} \d{4} \d{4}
+D
